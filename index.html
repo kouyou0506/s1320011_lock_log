@@ -46,7 +46,7 @@
     const container = document.getElementById("log-container");
 
     // キャッシュを避けるために時刻をつける。(GitHub Pagesの「ビルド完了」を待つのではなく、ラズパイが書き換えた瞬間に即時更新されるGitHubのRaw提供サーバーから直接ログファイルを引っ張ってくる)
-       const url = "https://raw.githubusercontent.com/kouyou0506/s1320011_lock_log/main/record.txt?t=" + Date.now();
+       const url = "https://raw.githubusercontent.com/kouyou0506/s1320011_lock_log/master/record.txt?t=" + Date.now();
 
     // ログを読み込む
     fetch(url)
