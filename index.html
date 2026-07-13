@@ -1,37 +1,71 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スマホロック達成記録</title>
-    <style>
-        body { font-family: sans-serif; margin: 20px; background: #f9f9f9; text-align: center; }
-        h1 { color: #333; font-size: 24px; border-bottom: 2px solid #ccc; padding-bottom: 10px; max-width: 600px; margin: 20px auto; text-align: left; }
-        .log-list { background: #fff; border: 1px solid #ddd; padding: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); line-height: 1.6; font-family: monospace; max-width: 600px; margin: 0 auto; text-align: left; white-space: pre-wrap; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>スマホロック達成記録</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 24px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+      max-width: 600px;
+      margin: 20px auto;
+      text-align: left;
+    }
+
+    .log-list {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      line-height: 1.6;
+      font-family: monospace;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
-    <h1>s1320011 櫻井 康陽 - スマホロック達成記録</h1>
-    <div class="log-list" id="log-container">ログを読み込み中...</div>
+  <h1>s1320011 櫻井 康陽 - スマホロック達成記録</h1>
+  <div id="log-container" class="log-list">ログを読み込み中...</div>
 
-    <script>
-        const logUrl = 'record.txt?t=' + new Date().getTime();
-        fetch(logUrl)
-            .then(response => {
-                if (!response.ok) throw new Error('File not found');
-                return response.text();
-            })
-            .then(data => {
-                const container = document.getElementById('log-container');
-                if (data.trim() === "") {
-                    container.innerText = "記録ログは空っぽです。";
-                } else {
-                    container.innerText = data.trim();
-                }
-            })
-            .catch(() => {
-                document.getElementById('log-container').innerText = 'まだ記録がありません。システムからログが送信されるのを待っています。';
-            });
-    </script>
+  <script>
+    // ログ表示場所
+    const container = document.getElementById("log-container");
+
+    // キャッシュを避けるために時刻をつける
+    const url = "record.txt?t=" + Date.now();
+
+    // ログを読み込む
+    fetch(url)
+      .then(function (response) {
+        if (response.ok === false) {
+          throw new Error("読み込み失敗");
+        }
+        return response.text();
+      })
+      .then(function (text) {
+        if (text.trim() === "") {
+          container.innerText = "記録ログは空っぽです。";
+        } else {
+          container.innerText = text.trim();
+        }
+      })
+      .catch(function () {
+        container.innerText = "まだ記録がありません。システムからログが送信されるのを待っています。";
+      });
+  </script>
 </body>
 </html>
